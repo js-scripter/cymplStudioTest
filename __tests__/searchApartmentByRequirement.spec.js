@@ -1,0 +1,1 @@
+const Search = require('../src/apartmentHunting')
