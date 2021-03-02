@@ -2,6 +2,9 @@ class Search{
 	apartmentHunting(blocks, reqs) {
        //make object (act as inverted index) with properties name equal to facility name in reqs
         let invertedIndex = CreateInvertedIndex(reqs, blocks);
+        
+        // travelEfficientBlock will hold info of most travel efficient block during iteration on blocks
+        let travelEfficientBlock= {traveldistance:0,index:-1}
     }
 }
 module.exports = Search
