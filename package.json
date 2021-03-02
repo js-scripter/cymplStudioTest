@@ -1,5 +1,5 @@
 {
-  "name": "@js-scripter/apartmentHunting",
+  "name": "apartmentHunting",
   "version": "1.0.0",
   "description": "Simple project to find the best apartment in a block where one has to travel less to get most facilities",
   "main": "index.js",
