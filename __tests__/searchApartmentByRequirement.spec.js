@@ -34,4 +34,7 @@ describe("Search Best Apartment",()=>{
         const output = 3
         expect(apartmentSearch.apartmentHunting(blocks,reqs)).toEqual(output)
     })
+
+	
+    
 })
