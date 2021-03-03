@@ -23,11 +23,6 @@ class Search{
                 });
                 // now find the distance to nearest block from the current block
                 currentBlockToCurrentFacilityDistance = nearestBlockIndex < blockIndex ? blockIndex - nearestBlockIndex : nearestBlockIndex - blockIndex
-                // if(nearestBlockIndex < blockIndex){
-                //     currentBlockToCurrentFacilityDistance = blockIndex - nearestBlockIndex 
-                // }else{
-                //     currentBlockToCurrentFacilityDistance = nearestBlockIndex - blockIndex
-                // }
 
                 //keep farthestDistanceToTravelOfCurrentBlock updated with new long distances found
                 if(farthestDistanceToTravelOfCurrentBlock < currentBlockToCurrentFacilityDistance){
