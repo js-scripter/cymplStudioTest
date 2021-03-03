@@ -52,16 +52,17 @@ module.exports = Search
 
 function CreateInvertedIndex(reqs, blocks) {
     let invertedIndex = {};
-    for (let a = reqs.length; a--;) {
-        let facility = reqs[a];
-        invertedIndex[facility] = [];
-        blocks.forEach((element, index) => {
-            if (element[facility] == true) {
-                invertedIndex[facility].push(index);
-                delete element[facility]
+    blocks.forEach((block, index) => {
+        Object.entries(block).forEach(([key, value]) =>{
+            if(value){
+                if(!Array.isArray(invertedIndex[key])){
+                    invertedIndex[key]=[]
+                }
+                invertedIndex[key].push(index);
+                delete block[key]
             }
-        });
-    }
+        }); 
+    });
     // console.log(JSON.stringify(invertedIndex))
     return invertedIndex;
 }
