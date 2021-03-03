@@ -67,9 +67,6 @@ function CreateInvertedIndex(reqs, blocks) {
             }
         });
     }
-    //sort each array in ascending order
-    for (const property in invertedIndex) {
-        invertedIndex[property].sort();
-    }
+    console.log(JSON.stringify(invertedIndex))
     return invertedIndex;
 }
