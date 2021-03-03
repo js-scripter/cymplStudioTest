@@ -7,7 +7,8 @@ class Search{
         let travelEfficientBlock= {traveldistance:0,index:-1}
 
         //loop on blocks array
-        for(let b=0; b<blocks.length; b++){
+        let blocksLength = blocks.length
+        for(let b=0; b<blocksLength; b++){
             // check one block at a time to find distance of each facility
             let block = blocks[b]
             // to keep track of distance between current block in iteration and closest facility block
@@ -17,7 +18,8 @@ class Search{
             let farthestDistanceToTravelOfCurrentBlock=0
 
             //loop on facilities to find out if current block has it or need to travel to other block to avail it
-            for(let c=0; c<reqs.length; c++){
+            let reqsLength = reqs.length
+            for(let c=0; c<reqsLength; c++){
                 let facility = reqs[c]
                 // if current block in iteration has the facility then 
                 //just skip and continue with next facility check
@@ -58,7 +60,8 @@ module.exports = Search
 
 function CreateInvertedIndex(reqs, blocks) {
     let invertedIndex = {};
-    for (let a = 0; a < reqs.length; a++) {
+    let reqsLength=reqs.length
+    for (let a = 0; a < reqsLength; a++) {
         let facility = reqs[a];
         invertedIndex[facility] = [];
         blocks.forEach((element, index) => {
