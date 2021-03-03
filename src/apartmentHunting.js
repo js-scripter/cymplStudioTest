@@ -6,7 +6,7 @@ class Search{
         // travelEfficientBlock will hold info of most travel efficient block during iteration on blocks
         let travelEfficientBlock= {traveldistance:0,index:-1}
 
-        //loop on blocks array
+        // iterate on blocks array
         for(let blockIndex=0, len = blocks.length; blockIndex<len; blockIndex++){
             // check one block at a time to find distance of each facility
             let block = blocks[blockIndex]
@@ -22,11 +22,12 @@ class Search{
                     return (Math.abs(curr - blockIndex) < Math.abs(prev - blockIndex) ? curr : prev);
                 });
                 // now find the distance to nearest block from the current block
-                if(nearestBlockIndex < blockIndex){
-                    currentBlockToCurrentFacilityDistance = blockIndex - nearestBlockIndex 
-                }else{
-                    currentBlockToCurrentFacilityDistance = nearestBlockIndex - blockIndex
-                }
+                currentBlockToCurrentFacilityDistance = nearestBlockIndex < blockIndex ? blockIndex - nearestBlockIndex : nearestBlockIndex - blockIndex
+                // if(nearestBlockIndex < blockIndex){
+                //     currentBlockToCurrentFacilityDistance = blockIndex - nearestBlockIndex 
+                // }else{
+                //     currentBlockToCurrentFacilityDistance = nearestBlockIndex - blockIndex
+                // }
 
                 //keep farthestDistanceToTravelOfCurrentBlock updated with new long distances found
                 if(farthestDistanceToTravelOfCurrentBlock < currentBlockToCurrentFacilityDistance){
