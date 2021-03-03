@@ -7,8 +7,7 @@ class Search{
         let travelEfficientBlock= {traveldistance:0,index:-1}
 
         //loop on blocks array
-        let blocksLength = blocks.length
-        for(let b=0; b<blocksLength; b++){
+        for(let b=0, len = blocks.length; b<len; b++){
             // check one block at a time to find distance of each facility
             let block = blocks[b]
             // to keep track of distance between current block in iteration and closest facility block
@@ -18,14 +17,8 @@ class Search{
             let farthestDistanceToTravelOfCurrentBlock=0
 
             //loop on facilities to find out if current block has it or need to travel to other block to avail it
-            let reqsLength = reqs.length
-            for(let c=0; c<reqsLength; c++){
+            for(let c=reqs.length; c--;){
                 let facility = reqs[c]
-                // if current block in iteration has the facility then 
-                //just skip and continue with next facility check
-                // if(block[facility]==true) {
-                //     continue
-                // }else{
                     // search nearest block with given facility in inverted index 
                     let nearestBlockIndex = invertedIndex[facility].reduce(function(prev, curr) {
                         return (Math.abs(curr - b) < Math.abs(prev - b) ? curr : prev);
@@ -41,7 +34,6 @@ class Search{
                     if(farthestDistanceToTravelOfCurrentBlock < currentBlockToCurrentFacilityDistance){
                         farthestDistanceToTravelOfCurrentBlock = currentBlockToCurrentFacilityDistance
                     }
-                // }
             }
             // if it is first iteration on blocks array then assign farthestDistanceToTravelOfCurrentBlock 
             // a value of first block to travelEfficientBlock.travelDistance later on b will never be zero 
@@ -60,8 +52,7 @@ module.exports = Search
 
 function CreateInvertedIndex(reqs, blocks) {
     let invertedIndex = {};
-    let reqsLength=reqs.length
-    for (let a = 0; a < reqsLength; a++) {
+    for (let a = reqs.length; a--;) {
         let facility = reqs[a];
         invertedIndex[facility] = [];
         blocks.forEach((element, index) => {
