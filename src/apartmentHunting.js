@@ -21,9 +21,9 @@ class Search{
                 let facility = reqs[c]
                 // if current block in iteration has the facility then 
                 //just skip and continue with next facility check
-                if(block[facility]==true) {
-                    continue
-                }else{
+                // if(block[facility]==true) {
+                //     continue
+                // }else{
                     // search nearest block with given facility in inverted index 
                     let nearestBlockIndex = invertedIndex[facility].reduce(function(prev, curr) {
                         return (Math.abs(curr - b) < Math.abs(prev - b) ? curr : prev);
@@ -39,7 +39,7 @@ class Search{
                     if(farthestDistanceToTravelOfCurrentBlock < currentBlockToCurrentFacilityDistance){
                         farthestDistanceToTravelOfCurrentBlock = currentBlockToCurrentFacilityDistance
                     }
-                }
+                // }
             }
             // if it is first iteration on blocks array then assign farthestDistanceToTravelOfCurrentBlock 
             // a value of first block to travelEfficientBlock.travelDistance later on b will never be zero 
@@ -64,9 +64,10 @@ function CreateInvertedIndex(reqs, blocks) {
         blocks.forEach((element, index) => {
             if (element[facility] == true) {
                 invertedIndex[facility].push(index);
+                delete element[facility]
             }
         });
     }
-    console.log(JSON.stringify(invertedIndex))
+    // console.log(JSON.stringify(invertedIndex))
     return invertedIndex;
 }
