@@ -1,5 +1,10 @@
 class Search{
+    constructor(){
+        this.testCounter=0
+    }
+    
 	apartmentHunting(blocks, reqs) {
+        this.testCounter++
        //make object (act as inverted index) with properties name equal to facility name in reqs
         let invertedIndex = CreateInvertedIndex(reqs, blocks);
 
@@ -13,28 +18,26 @@ class Search{
             // to keep track of distance between current block in iteration and closest facility block
             let currentBlockToCurrentFacilityDistance=0
             // to keep track of most long distance the current block in iteration has 
-            // from the block with facility
             let farthestDistanceToTravelOfCurrentBlock=0
 
-            //loop on facilities to find out if current block has it or need to travel to other block to avail it
-            for(let c=reqs.length; c--;){
-                let facility = reqs[c]
-                    // search nearest block with given facility in inverted index 
-                    let nearestBlockIndex = invertedIndex[facility].reduce(function(prev, curr) {
-                        return (Math.abs(curr - b) < Math.abs(prev - b) ? curr : prev);
-                    });
-                    // now find the distance to nearest block from the current block
-                    if(nearestBlockIndex < b){
-                        currentBlockToCurrentFacilityDistance = b - nearestBlockIndex 
-                    }else{
-                        currentBlockToCurrentFacilityDistance = nearestBlockIndex - b
-                    }
+            // refer facilities to find out if current block has it or need to travel to other block to avail it
+            reqs.forEach((facility,index)=>{
+                // search nearest block with given facility in inverted index 
+                let nearestBlockIndex = invertedIndex[facility].reduce(function(prev, curr) {
+                    return (Math.abs(curr - b) < Math.abs(prev - b) ? curr : prev);
+                });
+                // now find the distance to nearest block from the current block
+                if(nearestBlockIndex < b){
+                    currentBlockToCurrentFacilityDistance = b - nearestBlockIndex 
+                }else{
+                    currentBlockToCurrentFacilityDistance = nearestBlockIndex - b
+                }
 
-                    //keep farthestDistanceToTravelOfCurrentBlock updated with new long distances found
-                    if(farthestDistanceToTravelOfCurrentBlock < currentBlockToCurrentFacilityDistance){
-                        farthestDistanceToTravelOfCurrentBlock = currentBlockToCurrentFacilityDistance
-                    }
-            }
+                //keep farthestDistanceToTravelOfCurrentBlock updated with new long distances found
+                if(farthestDistanceToTravelOfCurrentBlock < currentBlockToCurrentFacilityDistance){
+                    farthestDistanceToTravelOfCurrentBlock = currentBlockToCurrentFacilityDistance
+                }
+            })
             // if it is first iteration on blocks array then assign farthestDistanceToTravelOfCurrentBlock 
             // a value of first block to travelEfficientBlock.travelDistance later on b will never be zero 
             // if maximum/farthest distance of current iterating block is less than most travel
@@ -52,17 +55,15 @@ module.exports = Search
 
 function CreateInvertedIndex(reqs, blocks) {
     let invertedIndex = {};
-    blocks.forEach((block, index) => {
-        Object.entries(block).forEach(([key, value]) =>{
-            if(value){
-                if(!Array.isArray(invertedIndex[key])){
-                    invertedIndex[key]=[]
-                }
-                invertedIndex[key].push(index);
-                delete block[key]
+    reqs.forEach((facility,index)=>{
+        invertedIndex[facility]=[]
+        blocks.forEach((block,index)=>{
+            if (block[facility] == true) {
+                invertedIndex[facility].push(index);
+                delete block[facility]
             }
-        }); 
-    });
+        })
+    })
     // console.log(JSON.stringify(invertedIndex))
     return invertedIndex;
 }
